@@ -31,7 +31,11 @@ The config file should be in this format
 {
     "bind": [
         "0.0.0.0:9000"
-    ]
+    ],
+    "admin": {
+        "alias": "cjdns-admin",
+        "host": "127.0.0.1:8084"
+    }
 }
 ```
 

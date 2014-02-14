@@ -47,10 +47,21 @@ proxy.on('error', function (err, req, res) {
 
 // handle the requests to be proxied
 function serverRequestHandler (req, res) {
-	var options;
+	var options,
+		host = req.headers.host;
+
+	// see ./default-config.json for the `admin` section
+	// should redirect cjdns-admin to 127.0.0.1:8
+	if (host.indexOf(config.admin.alias) === 0) {
+		host = config.admin.host;
+	}
 
 	// setup the proxy's config
-	options = { target: 'http://' + req.headers.host };
+	options = {
+		target: 'http://' + host,
+		ws: true,
+		xfwd: true
+	};
 
 	// attempt to proxy the request
 	console.log('%s %s', req.method, req.url);
