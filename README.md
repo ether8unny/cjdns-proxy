@@ -31,16 +31,10 @@ The config file should be in this format
 {
     "bind": [
         "0.0.0.0:9000"
-    ],
-    "nodes": [
-        "127.0.0.1:11234"
-    ],
-    "algorithm": "round-robin"
+    ]
 }
 ```
 
-Notice that `bind` and `nodes` are arrays because you can bind to multiple host/ip configurations and have them connect to the hosts in `nodes`.
-
-`algorithm` can be `round-robin` or `random`
+Notice that `bind` is an array and each item will cause this proxy to bind to that host:ip combo.
 
 Enjoy!

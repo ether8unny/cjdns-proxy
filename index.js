@@ -1,11 +1,10 @@
 
 var http = require('http'),
+	url = require('url'),
 	httpProxy = require('http-proxy'),
 	config,
 	server,
-	proxy,
-	roundRobinIndex = 0,
-	nodeAlgorithm;
+	proxy;
 
 // did the user pass the config path via command line arg?
 if (process.argv[2] && process.argv[2].indexOf('.json') > -1) {
@@ -36,42 +35,6 @@ if (!validArray(config.bind)) {
 	process.exit();
 }
 
-// validate nodes config
-if (!validArray(config.nodes)) {
-	console.log('config nodes is invalid, see default-config.json for an example');
-	process.exit();
-}
-
-// validate algorithm config
-if (!config.algorithm || typeof config.algorithm !== 'string') {
-	console.log('config algorithm is invalid, see default-config.json for an example');
-	process.exit();
-}
-
-function nodeAlgorithmRoundRobin (nodes) {
-	var node = nodes[roundRobinIndex];
-
-	// advance the counter
-	roundRobinIndex += 1;
-
-	// reset the count if needed
-	if (roundRobinIndex === nodes.length) {
-		roundRobinIndex = 0;
-	}
-
-	return node;
-}
-
-function nodeAlgorithmRandom (nodes) {
-	return nodes[Math.floor(Math.random() * nodes.length)];
-}
-
-if (config.algorithm === 'round-robin') {
-	nodeAlgorithm = nodeAlgorithmRoundRobin
-} else if (config.algorithm === 'random') {
-	nodeAlgorithm = nodeAlgorithmRandom;
-}
-
 // create proxy
 proxy = httpProxy.createProxyServer();
 
@@ -87,9 +50,7 @@ function serverRequestHandler (req, res) {
 	var options;
 
 	// setup the proxy's config
-	options = {
-		target: nodeAlgorithm('http://' + config.nodes)
-	};
+	options = { target: 'http://' + req.headers.host };
 
 	// attempt to proxy the request
 	console.log('%s %s', req.method, req.url);
