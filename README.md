@@ -1,6 +1,13 @@
 
++ Use at your own risk
++ No support or license is included
+
 # cjdns-proxy experimental
 ---
+
+This is an HTTP proxy which serves as a gateway to a cjdns node. If you run cjdns in a VM this can help you connect to it in the browser. After you install this on the node you can set your browser's HTTP proxy information to the hosts you have configured to bind to.
+
+If you are running cjdns' admin interface is also exposed with this interface. When installed visit [http://cjdns-admin]
 
 Check out `default-config.json` for some options to help your setup.
 
@@ -23,7 +30,7 @@ node index
 
 Or with your own configuration file
 ```
-node index my-custom-cjdns-config.json
+node index my-custom-config.json
 ```
 
 The config file should be in this format
@@ -41,4 +48,4 @@ The config file should be in this format
 
 Notice that `bind` is an array and each item will cause this proxy to bind to that host:ip combo.
 
-Enjoy!
+Finally, set your browser's proxy to what you have configured to bind to. Better yet, do it in an alternate browser profile.

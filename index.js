@@ -52,7 +52,7 @@ function serverRequestHandler (req, res) {
 
 	// see ./default-config.json for the `admin` section
 	// should redirect cjdns-admin to 127.0.0.1:8
-	if (host.indexOf(config.admin.alias) === 0) {
+	if (config.admin && config.admin.alias &&host.indexOf(config.admin.alias) === 0) {
 		host = config.admin.host;
 	}
 
