@@ -26,11 +26,6 @@ function validArray (arr) {
 
 // validate bind config
 if (!validArray(config.bind)) {
-	console.log('something');
-	console.log('**' + config.bind + '**');
-	console.log('**' + config.bind + '**');
-	console.log('**' + config.bind + '**');
-	console.dir(config.bind);
 	console.log('config bind is invalid, see default-config.json for an example');
 	process.exit();
 }
