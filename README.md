@@ -1,7 +1,4 @@
 
-+ Use at your own risk
-+ No support or license is included
-
 # cjdns-proxy experimental
 ---
 
